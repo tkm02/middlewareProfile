@@ -323,46 +323,46 @@
             if (!user) return;
 
             // Remplacer par l'URL d'image de l'API
-            document.getElementById('profileImage').src = user.profileImageUrl;
-            document.getElementById('profileImage').alt = user.profileImageUrl;
-            document.getElementById('userName').textContent = `${user.firstName} ${user.lastName}`;
-            document.getElementById('position').textContent = user.profession || 'Position non spécifiée';
-            document.getElementById('bio').textContent = user.bio || 'Aucune biographie disponible.';
+            document.getElementById('profileImage').src = user.user.profileImageUrl;
+            document.getElementById('profileImage').alt = user.user.profileImageUrl;
+            document.getElementById('userName').textContent = `${user.user.firstName} ${user.user.lastName}`;
+            document.getElementById('position').textContent = user.user.profession || 'Position non spécifiée';
+            document.getElementById('bio').textContent = user.user.bio || 'Aucune biographie disponible.';
 
-            document.getElementById('companyWebsite').href = user.website;
-            document.getElementById('companyLinkedIn').href = user.socialLinks.linkedIn;
+            document.getElementById('companyWebsite').href = user.user.website;
+            document.getElementById('companyLinkedIn').href = user.user.socialLinks.linkedIn;
 
             // Remplir les informations de contact
             const contactInfoContainer = document.getElementById('contactInfoContainer');
             contactInfoContainer.innerHTML = `
                 <div class="info-item">
                     <span class="info-label">Email:</span>
-                    <span class="info-value">${user.personalEmail}</span>
+                    <span class="info-value">${user.user.personalEmail}</span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">Téléphone:</span>
-                    <span class="info-value">${user.personalPhone}</span>
+                    <span class="info-value">${user.user.personalPhone}</span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">Contact professionnel: </span>
-                    <span class="info-value">${user.professionalPhone}</span>
+                    <span class="info-value">${user.user.professionalPhone}</span>
                 </div>
                 <div class="info-item">
                     <span class="info-label">Email professionnel:</span>
-                    <span class="info-value">${user.professionalEmail}</span>
+                    <span class="info-value">${user.user.professionalEmail}</span>
                 </div>
             `;
 
             // Remplir les liens vers les réseaux sociaux
             const socialLinksContainer = document.getElementById('socialLinksContainer');
             const socialLinks = {
-                facebook: user.socialLinks.facebook,
-                instagram: user.socialLinks.instagram,
-                linkedIn: user.socialLinks.linkedIn,
-                snapchat: user.socialLinks.snapchat,
-                telegram: user.socialLinks.telegram,
-                tiktok: user.socialLinks.tiktok,
-                twitter: user.socialLinks.twitter,
+                facebook: user.user.socialLinks.facebook,
+                instagram: user.user.socialLinks.instagram,
+                linkedIn: user.user.socialLinks.linkedIn,
+                snapchat: user.user.socialLinks.snapchat,
+                telegram: user.user.socialLinks.telegram,
+                tiktok: user.user.socialLinks.tiktok,
+                twitter: user.user.socialLinks.twitter,
             };
 
             // Créer un tableau pour l'affichage des liens
@@ -381,18 +381,18 @@
 
             const vcard = `BEGIN:VCARD
 VERSION:3.0
-N:${user.lastName};${user.firstName};;;
-FN:${user.firstName} ${user.lastName}
-TEL;TYPE=HOME,VOICE:${user.personalPhone}
-TEL;TYPE=WORK,VOICE:${user.professionalPhone}
-EMAIL;TYPE=HOME,INTERNET:${user.personalEmail}
-EMAIL;TYPE=WORK,INTERNET:${user.professionalEmail}
-URL:${user.website}
-ORG:${user.companyName}
-TITLE:${user.profession}
-ADR;TYPE=WORK:;;${user.city};${user.country};${user.postalCode}
-NOTE:${user.bio}
-${Object.entries(user.socialLinks)
+N:${user.user.lastName};${user.user.firstName};;;
+FN:${user.user.firstName} ${user.user.lastName}
+TEL;TYPE=HOME,VOICE:${user.user.personalPhone}
+TEL;TYPE=WORK,VOICE:${user.user.professionalPhone}
+EMAIL;TYPE=HOME,INTERNET:${user.user.personalEmail}
+EMAIL;TYPE=WORK,INTERNET:${user.user.professionalEmail}
+URL:${user.user.website}
+ORG:${user.user.companyName}
+TITLE:${user.user.profession}
+ADR;TYPE=WORK:;;${user.user.city};${user.user.country};${user.user.postalCode}
+NOTE:${user.user.bio}
+${Object.entries(user.user.socialLinks)
     .filter(([_, value]) => value)
     .map(([key, value]) => `X-SOCIAL-${key.toUpperCase()}:${value}`)
     .join('\n')}
@@ -402,7 +402,7 @@ END:VCARD`;
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.setAttribute('download', `${user.firstName}_${user.lastName}.vcf`);
+            link.setAttribute('download', `${user.user.firstName}_${user.user.lastName}.vcf`);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
