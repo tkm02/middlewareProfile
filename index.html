@@ -291,7 +291,7 @@
 
         async function fetchUserData(userId) {
             try {
-                const response = await fetch(`https://backend-qr-code-contact.onrender.com/api/users/${userId}`);
+                const response = await fetch(`https://apimiddleware-1.onrender.com/api/users/${userId}`);
                 if (!response.ok) {
                     throw new Error('Impossible de récupérer les données de l\'utilisateur');
                 }
